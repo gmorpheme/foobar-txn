@@ -1,0 +1,10 @@
+machine:
+  services:
+    - docker
+
+deployment:
+  snapshot:
+    branch: master
+    commands:
+      - docker build -t gmorpheme/foobar-txn .
+      - docker push gmorpheme/foobar-txn

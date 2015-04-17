@@ -4,11 +4,13 @@
             [liberator.core :refer (defresource)]
             [liberator.dev :refer (wrap-trace)]
             [ring.adapter.jetty :refer (run-jetty)]
+            [ring.middleware.cors :refer [wrap-cors]]
             [hashids.core :as hash]))
 
 (defonce session-counter (atom 0))
 (defonce transaction-counter (atom 0))
 (defonce random-source (java.util.Random.))
+(defonce store (atom {}))
 
 (defn random-amount []
   (Math/abs (double (/ (.nextInt random-source) 1000000))))
@@ -22,7 +24,10 @@
 (defresource session-resource
   :allowed-methods [:post]
   :available-media-types ["application/json"]
-  :handle-created (fn [ctx] {:id (hash/encrypt (swap! session-counter inc) "session")}))
+  :handle-created (fn [ctx]
+                    (let [id (hash/encrypt (swap! session-counter inc) "session")]
+                      (swap! store assoc id {:transfers []})
+                      {:id id})))
 
 (defresource transfer-resource
   :allowed-methods [:get :post]
@@ -43,7 +48,9 @@
   (->
    (make-handler routes {:session session-resource
                          :transfer transfer-resource})
-   (wrap-trace :header :ui)))
+   (wrap-trace :header :ui)
+   (wrap-cors :access-control-allow-origin [#".*"]
+              :access-control-allow-methods [:get :put :post :delete])))
 
 (defn -main []
   (run-jetty handler {:port 9000 :join? false}))

@@ -6,14 +6,29 @@
 POST http://localhost:9000/api/session
 Accept: application/json
 
+# ...test server
+
+POST http://test-foobar.curvelogic.org:9000/api/session
+Accept: application/json
+
 # List transfers
 
 GET http://localhost:9000/api/session/2352/transfer
 Accept: application/json
 
+# ...test server
+
+GET http://test-foobar.curvelogic.org:9000/api/session/2352/transfer
+Accept: application/json
+
 # Create a transfer
 
 POST http://localhost:9000/api/session/2352/transfer
+Accept: application/json
+
+# ...test server
+
+POST http://test-foobar.curvelogic.org:9000/api/session/2352/transfer
 Accept: application/json
 
 

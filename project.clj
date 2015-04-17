@@ -12,6 +12,7 @@
                  [ring/ring-core "1.3.2"]
                  [ring/ring-jetty-adapter "1.3.2"]
                  [gorilla-repl "0.3.4"]
+                 [jumblerg/ring.middleware.cors "1.0.1"]
                  [hashobject/hashids "0.2.0"]]
 
   :main foobar-txn.core)

@@ -1,0 +1,19 @@
+# -*- mode: restclient -*-
+
+
+# Create a user session
+
+POST http://localhost:9000/api/session
+Accept: application/json
+
+# List transfers
+
+GET http://localhost:9000/api/session/2352/transfer
+Accept: application/json
+
+# Create a transfer
+
+POST http://localhost:9000/api/session/2352/transfer
+Accept: application/json
+
+

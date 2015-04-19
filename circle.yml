@@ -6,6 +6,6 @@ deployment:
   snapshot:
     branch: master
     commands:
-      - docker build -t gmorpheme/foobar-txn .
+      - docker build -t gmorpheme/foobar-txn:0.1.0.$CIRCLE_BUILD_NUM .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push gmorpheme/foobar-txn
+      - docker push gmorpheme/foobar-txn:0.1.0.$CIRCLE_BUILD_NUM
